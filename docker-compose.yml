@@ -1,0 +1,5 @@
+freeswitch:
+  tty: true
+  image: flaccid/freeswitch
+  stdin_open: true
+  net: host
