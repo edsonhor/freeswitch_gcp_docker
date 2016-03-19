@@ -50,10 +50,14 @@ Exit the console using the `/exit` command.
  * `/etc/freeswitch/sip_profiles/internal.xml`
  * `/etc/freeswitch/sip_profiles/external.xml`
  * `/etc/freeswitch/autoload_configs/switch.conf.xml`
+ * `/etc/freeswitch/dialplan/default.xml` - default dialplan
 
 #### Testing the Server
 
-Connect your SIP (e.g. a soft phone) with username `1000` and password `1234`.
+FreeSWITCH comes out of the box with a default password for registrations to users 1000-1019 as '1234'.
+The default password should be changed by setting `DEFAULT_PASSWORD` with the container run.
+
+Connect your SIP (e.g. a soft phone) with username `1000` and the value of `DEFAULT_PASSWORD`.
 
 Once your container is running and a SIP client connected, test some extensions:
 
@@ -64,12 +68,33 @@ Once your container is running and a SIP client connected, test some extensions:
  * `9198` - Tetris music
  * `9664` - music on hold
 
+ Conference rooms:
+ * `9888` - 8k codec
+ * `91616` - 16k codec; disabled
+ * `93232` - 32k codec; disabled
+
 More information: https://wiki.freeswitch.org/wiki/Getting_Started_Guide
+
+#### Firewall Configuration
+
+If you run a firewall on the host:
+
+- http://wiki.freeswitch.org/wiki/Firewall
+- https://freeswitch.org/confluence/display/FREESWITCH/Firewall
 
 ### Tag and Push
 
     $ docker tag freeswitch flaccid/freeswitch
     $ docker push flaccid/freeswitch
+
+## Useful Resources
+
+- https://freeswitch.org/
+- https://wiki.archlinux.org/index.php/Freeswitch
+- https://wiki.freeswitch.org/wiki/Getting_Started_Guide
+- https://beingasysadmin.wordpress.com/2014/06/16/dockerizing-freeswitch-docker-enters-telephony-world/
+
+See https://wiki.freeswitch.org/wiki/Freeswitch_Gui for frontends.
 
 License and Authors
 -------------------
