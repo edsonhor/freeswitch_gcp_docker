@@ -22,6 +22,8 @@ Detached:
 
 There should be a reasonable amount of flexibility using the available variables. If not please raise an issue so your use case can be covered!
 
+- `CONFIG_OVERLAY_GIT_URI` - URI for git clone of a custom configuration repo to overlay on top of the default configuration
+- `CONFIG_OVERLAY_GIT_PRIVATE_KEY` - SSH private key for the git repo (if required, private is recommended)
 - `DEFAULT_PASSWORD` - The default password, this should always be set to override the default of `1234`
 - `EC2` - Configure for EC2/VPC usage - `yes` or `no`, default is `no`
 
@@ -93,6 +95,7 @@ If you run a firewall on the host:
 - https://wiki.archlinux.org/index.php/Freeswitch
 - https://wiki.freeswitch.org/wiki/Getting_Started_Guide
 - https://beingasysadmin.wordpress.com/2014/06/16/dockerizing-freeswitch-docker-enters-telephony-world/
+- https://wiki.freeswitch.org/wiki/Getting_Started_Guide#Dialing_out_via_Gateway
 
 See https://wiki.freeswitch.org/wiki/Freeswitch_Gui for frontends.
 
