@@ -65,4 +65,30 @@ if [ "$EC2" = 'yes' ]; then
   sed -i 's%<!-- <param name="rtp-end-port" value="32768"/> -->%<param name="rtp-end-port" value="32768"/>%g' /etc/freeswitch/autoload_configs/switch.conf.xml
 fi
 
+# overlay configuration
+if [ ! -z "$CONFIG_OVERLAY_GIT_URI" ]; then
+  if [ ! -z "$CONFIG_OVERLAY_GIT_PRIVATE_KEY" ]; then
+    mkdir -p /root/.ssh
+    echo "$CONFIG_OVERLAY_GIT_PRIVATE_KEY" > /root/.ssh/id_rsa
+    chmod 400 /root/.ssh/id_rsa
+  fi
+
+  # Create known_hosts
+  touch /root/.ssh/known_hosts
+
+  # this is not secure, but lets do for common defaults
+  # Add bitbucket's key
+  ssh-keyscan bitbucket.org >> /root/.ssh/known_hosts
+  # Add github's key
+  ssh-keyscan github.com >> /root/.ssh/known_hosts
+
+  # clone the repository
+  mkdir /root/src
+  cd /root/src
+  git clone -q "$CONFIG_OVERLAY_GIT_URI" fs-custom
+
+  # currently, we'll only support copying from etc
+  cp -Rvf ./fs-custom/etc/* /etc/
+fi
+
 freeswitch -c $ADDITIONAL_OPTS
