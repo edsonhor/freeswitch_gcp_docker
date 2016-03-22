@@ -8,7 +8,7 @@ RUN apt-get update && apt-get -y install curl && \
       curl https://files.freeswitch.org/repo/deb/debian/freeswitch_archive_g0.pub | apt-key add - && \
       echo "deb http://files.freeswitch.org/repo/deb/freeswitch-1.6/ jessie main" > /etc/apt/sources.list.d/freeswitch.list && \
       apt-get -y update && apt-get -y upgrade && \
-      apt-get -y install xmlstarlet freeswitch-all freeswitch-all-dbg gdb && \
+      apt-get -y install xmlstarlet git freeswitch-all freeswitch-all-dbg gdb && \
       rm -rf /var/lib/apt/lists/*
 
 VOLUME /etc/freeswitch
@@ -23,7 +23,7 @@ EXPOSE 8021/tcp
 # RTP port range
 EXPOSE 16384-32768/udp
 
-COPY entry.sh /entry.sh
-ENTRYPOINT /entry.sh
+COPY entry.sh /opt/local/bin/entry.sh
+ENTRYPOINT /opt/local/bin/entry.sh
 
 CMD ["freeswitch", "-c", "-nf"]
