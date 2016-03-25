@@ -1,6 +1,7 @@
 FROM debian:jessie
 
 ENV EC2 false
+ENV SOFTTIMER_TIMERFD true
 ENV DEFAULT_PASSWORD 1234
 ENV DEBIAN_FRONTEND noninteractive
 
