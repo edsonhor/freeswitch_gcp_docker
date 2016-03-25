@@ -94,5 +94,5 @@ if [ ! -z "$CONFIG_OVERLAY_GIT_URI" ]; then
   cp -Rvf ./fs-custom/etc/* /etc/
 fi
 
-echo executing: freeswitch "$@"
-exec freeswitch "$@"
+echo executing: "$@"
+exec "$@"
