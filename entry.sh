@@ -9,6 +9,13 @@ xmlstarlet ed -L -u \
   -v "default_password=$DEFAULT_PASSWORD" \
     /etc/freeswitch/vars.xml
 
+# timerfd support
+# https://wiki.freeswitch.org/wiki/Mod_timerfd
+if [ "$SOFTTIMER_TIMERFD" = 'true' ]; then
+  echo 'Enabling softtimer-timerfd'
+  sed -i 's%<!-- <param name="enable-softtimer-timerfd" value="true"/> -->%<param name="enable-softtimer-timerfd" value="true"/>%g' /etc/freeswitch/autoload_configs/switch.conf.xml
+fi
+
 # EC2 support
 # https://freeswitch.org/confluence/display/FREESWITCH/Amazon+EC2
 if [ "$EC2" = 'true' ]; then
