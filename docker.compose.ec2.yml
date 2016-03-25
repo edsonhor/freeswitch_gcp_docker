@@ -5,4 +5,4 @@ freeswitch:
   net: host
   environment:
     DEFAULT_PASSWORD: s3cure
-    EC2: yes
+    EC2: true
