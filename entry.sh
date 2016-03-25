@@ -1,8 +1,9 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # Re-configuration
 
 # Default password
+echo 'Updating default_password'
 xmlstarlet ed -L -u \
   "/include/X-PRE-PROCESS[@data = 'default_password=1234']/@data" \
   -v "default_password=$DEFAULT_PASSWORD" \
@@ -11,6 +12,7 @@ xmlstarlet ed -L -u \
 # EC2 support
 # https://freeswitch.org/confluence/display/FREESWITCH/Amazon+EC2
 if [ "$EC2" = 'yes' ]; then
+  echo 'Updating configuration for EC2'
   # bind_server_ip
   xmlstarlet ed -L -u \
     "/include/X-PRE-PROCESS[@data = 'bind_server_ip=auto']/@cmd" \
@@ -67,6 +69,7 @@ fi
 
 # overlay configuration
 if [ ! -z "$CONFIG_OVERLAY_GIT_URI" ]; then
+  echo 'Overlaying custom configuration repository'
   if [ ! -z "$CONFIG_OVERLAY_GIT_PRIVATE_KEY" ]; then
     mkdir -p /root/.ssh
     echo "$CONFIG_OVERLAY_GIT_PRIVATE_KEY" > /root/.ssh/id_rsa
@@ -91,4 +94,5 @@ if [ ! -z "$CONFIG_OVERLAY_GIT_URI" ]; then
   cp -Rvf ./fs-custom/etc/* /etc/
 fi
 
-freeswitch -c $ADDITIONAL_OPTS
+echo executing: freeswitch "$@"
+exec freeswitch "$@"
