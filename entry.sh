@@ -11,7 +11,7 @@ xmlstarlet ed -L -u \
 
 # EC2 support
 # https://freeswitch.org/confluence/display/FREESWITCH/Amazon+EC2
-if [ "$EC2" = 'yes' ]; then
+if [ "$EC2" = 'true' ]; then
   echo 'Updating configuration for EC2'
   # bind_server_ip
   xmlstarlet ed -L -u \

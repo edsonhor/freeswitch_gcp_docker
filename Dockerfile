@@ -1,6 +1,6 @@
 FROM debian:jessie
 
-ENV EC2 no
+ENV EC2 false
 ENV DEFAULT_PASSWORD 1234
 ENV DEBIAN_FRONTEND noninteractive
 
