@@ -39,6 +39,11 @@ Check the status of the server:
 
 Exit the console using the `/exit` command.
 
+##### Updating and Reloading with the Overlay Repository
+
+    $ docker exec -it freeswitch /bin/bash -c \
+        'cd /root/src/fs-custom && git pull && cp -Rvf /root/src/fs-custom/etc/* /etc/ && fs_cli -x "reloadxml"'
+
 #### Files and Directories
 
 ##### Directories Overview
