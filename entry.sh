@@ -85,13 +85,22 @@ if [ ! -z "$CONFIG_OVERLAY_GIT_URI" ]; then
   # Add github's key
   ssh-keyscan github.com >> /root/.ssh/known_hosts
 
-  # clone the repository
-  mkdir /root/src
-  cd /root/src
-  git clone -q "$CONFIG_OVERLAY_GIT_URI" fs-custom
+  # clone the repository or pull if already existing
+  mkdir -p /root/src
+  if [ -e /root/src/fs-custom ]; then
+    echo 'Performing a pull on existing clone'
+    pushd "/root/src/fs-custom"
+      git pull
+    popd
+  else
+    echo 'Performing fresh clone'
+    pushd "/root/src"
+      git clone "$CONFIG_OVERLAY_GIT_URI" fs-custom
+    popd
+  fi
 
   # currently, we'll only support copying from etc
-  cp -Rvf ./fs-custom/etc/* /etc/
+  cp -Rvf /root/src/fs-custom/etc/* /etc/
 fi
 
 echo executing: "$@"
