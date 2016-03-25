@@ -24,6 +24,7 @@ EXPOSE 8021/tcp
 EXPOSE 16384-32768/udp
 
 COPY entry.sh /opt/local/bin/entry.sh
+
 ENTRYPOINT /opt/local/bin/entry.sh
 
-CMD ["freeswitch", "-c", "-nf"]
+CMD ["-c", "-nf"]
