@@ -30,6 +30,7 @@ EXPOSE 8021/tcp
 EXPOSE 16384-32768/udp
 
 COPY entry.sh /opt/local/bin/entry.sh
+COPY reload.sh /opt/local/bin/reload.sh
 
 ENTRYPOINT ["/opt/local/bin/entry.sh"]
 
