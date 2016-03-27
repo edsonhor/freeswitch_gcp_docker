@@ -42,8 +42,7 @@ Exit the console using the `/exit` command.
 
 ##### Updating and Reloading with the Overlay Repository
 
-    $ docker exec -it freeswitch /bin/bash -c \
-        'cd /root/src/fs-custom && git pull && cp -Rvf /root/src/fs-custom/etc/* /etc/ && fs_cli -x "reloadxml"'
+    $ docker exec -it freeswitch /opt/local/bin/reload.sh
 
 #### Files and Directories
 
