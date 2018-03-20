@@ -16,6 +16,29 @@ if [ "$SOFTTIMER_TIMERFD" = 'true' ]; then
   sed -i 's%<!-- <param name="enable-softtimer-timerfd" value="true"/> -->%<param name="enable-softtimer-timerfd" value="true"/>%g' /etc/freeswitch/autoload_configs/switch.conf.xml
 fi
 
+
+# GCP support
+
+if [ "$GCP" = 'true' ]; then
+  echo 'Updating configuration for GCP VM'
+  
+  # vars.xml modification
+  gcp_external_ip=$(curl --header "Metadata-Flavor : Google" http://metadata/computeMetadata/v1/instance/network-interfaces/0/access-configs/0/external-ip)
+  sed -i 's@<X-PRE-PROCESS cmd="set" data="domain=$${local_ip_v4}"/>@<X-PRE-PROCESS cmd="set" data="domain='"$gcp_external_ip"'"/>@' /etc/freeswitch/vars.xml
+
+  # sip_profiles/internal.xml modifications
+   
+   sed -i 's@<param name="ext-rtp-ip" value="auto-nat"/>@<param name="ext-rtp-ip" value="autonat:'"$gcp_external_ip"'"/>@' /etc/freeswitch/sip_profiles/internal.xml
+   sed -i 's@<param name="ext-sip-ip" value="auto-nat"/>@<param name="ext-sip-ip" value="autonat:'"$gcp_external_ip"'"/>@' /etc/freeswitch/sip_profiles/internal.xml   
+
+fi
+
+
+
+
+
+
+
 # EC2 support
 # https://freeswitch.org/confluence/display/FREESWITCH/Amazon+EC2
 if [ "$EC2" = 'true' ]; then
